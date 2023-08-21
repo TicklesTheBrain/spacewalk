@@ -20,10 +20,10 @@
 					?>
 					<div class= "message_header">
 						<span class = "time"><?= date("Y-m-d H:i:s", $timestamp) ?> </span>
-						<span class = "name"><?= $name ?></span>
+						<span class = "name"><?= htmlspecialchars( $name) ?></span>
 					</div>
 					<div class= "message_content">
-						<span class="message_text"><?= $text?></span>
+						<span class="message_text"><?= htmlspecialchars( $text)?></span>
 					</div>
 					<?php
 				}
