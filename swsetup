@@ -46,5 +46,5 @@ echo "modeAll $modeAll"
 #sudo lnxrouter --ap wlan0 SpaceWalkGame  --dns-nocache -g 192.168.1.5 -d -n --daemon
 #sudo nodogsplash
 #sudo nginx
-
-exit "Space walk startup script finished"
+echo "Space walk startup script finished"
+exit 0
