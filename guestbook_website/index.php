@@ -13,9 +13,9 @@
 	<header><link rel="stylesheet" type="text/css" href="assets/css/style.css"></header>
 	<?php
 		date_default_timezone_set('Europe/Vilnius');
-		$idToUse = 1;
+		$idToUse = 0;
 		$messages = array_reverse(json_decode(file_get_contents('messages.json', true), true));
-		$data = json_decode(file_get_contents('../data.json', true), true)[$idToUse];
+		$data = json_decode(file_get_contents('../data.json', true), true)['guestbookData'][$idToUse];
 		$last = isset($data['complete']);
 		$title = $data['title'];
 		$location = $last ? null : $data['location'];

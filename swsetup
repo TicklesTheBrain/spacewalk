@@ -7,6 +7,7 @@
 #nginx with a modified config to include all additional config files from spacewalk directory
 #nodogsplash, which doesn't have a package and has to be built on the device
 #unofficial wiringpi, because the official one doesn't work with all raspis https://github.com/WiringPi/WiringPi/releases/tag/2.61-1
+#use jq to make edit some of the jsons from bash
 
 echo "Space Walk Startup Script Running"
 echo $PWD
@@ -26,8 +27,21 @@ echo "mode2 $mode2"
 echo "mode3 $mode3"
 echo "modeAll $modeAll"
 
+if (($mode1 == 1)); then
+    cat data.json | jq '.mode = $v' --arg v 0 | sponge data.json
+elif (($mode2 == 1)); then
+    cat data.json | jq '.mode = $v' --arg v 1 | sponge data.json
+elif (($mode3 == 1)); then
+    cat data.json | jq '.mode = $v' --arg v 2 | sponge data.json
+else
+    cat data.json | jq '.mode = $v' --arg v -1 | sponge data.json
+fi
+
+
+
 
 #Then we do a git pull to get all the latest content
+#sudo git stash
 #sudo git pull
 
 #Then based on the mode, we copy stuff around
