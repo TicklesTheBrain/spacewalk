@@ -29,13 +29,13 @@ echo "mode3 $mode3"
 echo "modeAll $modeAll"
 
 if (($mode1 == 1)); then
-    cat data.json | jq '.mode = $v' --arg v 0 | sponge data.json
+    cat variables.json | jq '.mode = $v' --arg v 0 | sponge variables.json
 elif (($mode2 == 1)); then
-    cat data.json | jq '.mode = $v' --arg v 1 | sponge data.json
+    cat variables.json | jq '.mode = $v' --arg v 1 | sponge variables.json
 elif (($mode3 == 1)); then
-    cat data.json | jq '.mode = $v' --arg v 2 | sponge data.json
+    cat variables.json | jq '.mode = $v' --arg v 2 | sponge variables.json
 else
-    cat data.json | jq '.mode = $v' --arg v -1 | sponge data.json
+    cat variables.json | jq '.mode = $v' --arg v -1 | sponge variables.json
 fi
 
 

@@ -1,2 +1,2 @@
-variables.*
-#conf.d/**
+#variables.*
+conf.d/**
