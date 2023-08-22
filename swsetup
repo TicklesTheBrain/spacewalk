@@ -24,7 +24,7 @@ fi
 echo "mode1 $mode1"
 echo "mode2 $mode2"
 echo "mode3 $mode3"
-ehco "modeAll $modeAll"
+echo "modeAll $modeAll"
 
 
 #Then we do a git pull to get all the latest content
