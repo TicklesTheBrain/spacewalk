@@ -14,8 +14,8 @@ if(isset($_POST['submit'])){
     // if message is not empty
     if(!empty($message)){
         // get existing json data
-        if (file_exists('data.json') && filesize('data.json') > 0) {
-            $data = json_decode(file_get_contents('data.json'), true);
+        if (file_exists('messages.json') && filesize('messages.json') > 0) {
+            $data = json_decode(file_get_contents('messages.json'), true);
         } else {
             $data = array();
         }
@@ -31,7 +31,7 @@ if(isset($_POST['submit'])){
         // if current submission does not match any previous submissions, append it to the JSON file
         if ($flag) {
             array_unshift($data, array("name" => $name, "message" => $message, "timestamp" => $timestamp));
-            file_put_contents('data.json', json_encode($data));
+            file_put_contents('messages.json', json_encode($data));
         }
     }
 }
