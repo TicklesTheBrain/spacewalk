@@ -8,6 +8,7 @@
 #nodogsplash, which doesn't have a package and has to be built on the device
 #unofficial wiringpi, because the official one doesn't work with all raspis https://github.com/WiringPi/WiringPi/releases/tag/2.61-1
 #use jq to make edit some of the jsons from bash
+#install moreutils to get the sponge command
 
 echo "Space Walk Startup Script Running"
 echo $PWD
