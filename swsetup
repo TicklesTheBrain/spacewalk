@@ -9,6 +9,7 @@
 #unofficial wiringpi, because the official one doesn't work with all raspis https://github.com/WiringPi/WiringPi/releases/tag/2.61-1
 #use jq to make edit some of the jsons from bash
 #install moreutils to get the sponge command
+#install php8.1-fpm so that nginx can serve php
 
 echo "Space Walk Startup Script Running"
 echo $PWD
@@ -28,18 +29,27 @@ echo "mode2 $mode2"
 echo "mode3 $mode3"
 echo "modeAll $modeAll"
 
+rm -r conf.d/*
+
 if (($mode1 == 1)); then
     cat variables.json | jq '.mode = $v' --arg v 0 | sponge variables.json
+    cp -a nginx_conf_files/stage1/. conf.d/
+    cp -a stage1websites/splash/. /etc/nodogsplash/htdocs/
 elif (($mode2 == 1)); then
     cat variables.json | jq '.mode = $v' --arg v 1 | sponge variables.json
+    cp -a nginx_conf_files/stage2/. conf.d/
+    cp -a stage2websites/splash/. /etc/nodogsplash/htdocs/
 elif (($mode3 == 1)); then
     cat variables.json | jq '.mode = $v' --arg v 2 | sponge variables.json
 else
     cat variables.json | jq '.mode = $v' --arg v -1 | sponge variables.json
+    cp -a nginx_conf_files/stage1/. conf.d/
+    cp -a nginx_conf_files/stage2/. conf.d/
+    cp -a stage2websites/splash/. /etc/nodogsplash/htdocs/
 fi
 
-
-
+cp nginx_conf_files/default.conf conf.d/
+cp -a nginx_conf_files/universal/. conf.d/
 
 #Then we do a git pull to get all the latest content
 #sudo git stash
@@ -58,8 +68,8 @@ fi
 
 
 #once everything is in place - we start the ap, splash server and webservers
-#sudo lnxrouter --ap wlan0 SpaceWalkGame  --dns-nocache -g 192.168.1.5 -d -n --daemon
-#sudo nodogsplash
-#sudo nginx
+sudo spacewalk/lnxrouter --ap wlan0 SpaceWalkGame  --dns-nocache -g 192.168.1.5 -d -n --daemon
+sudo nodogsplash
+sudo systemctl status nginx
 echo "Space walk startup script finished"
 exit 0
