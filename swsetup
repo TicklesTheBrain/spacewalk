@@ -29,7 +29,7 @@ echo "mode2 $mode2"
 echo "mode3 $mode3"
 echo "modeAll $modeAll"
 
-rm -r conf.d/*
+sudo rm -r conf.d/*
 
 if (($mode1 == 1)); then
     cat variables.json | jq '.mode = $v' --arg v 0 | sponge variables.json
@@ -42,14 +42,14 @@ elif (($mode2 == 1)); then
 elif (($mode3 == 1)); then
     cat variables.json | jq '.mode = $v' --arg v 2 | sponge variables.json
 else
-    cat variables.json | jq '.mode = $v' --arg v -1 | sponge variables.json
-    cp -a nginx_conf_files/stage1/. conf.d/
-    cp -a nginx_conf_files/stage2/. conf.d/
-    cp -a stage2websites/splash/. /etc/nodogsplash/htdocs/
+    sudo cat variables.json | jq '.mode = $v' --arg v -1 | sponge variables.json
+    sudo cp -a nginx_conf_files/stage1/. conf.d/
+    sudo cp -a nginx_conf_files/stage2/. conf.d/
+    sudo cp -a stage2websites/splash/. /etc/nodogsplash/htdocs/
 fi
 
-cp nginx_conf_files/default.conf conf.d/
-cp -a nginx_conf_files/universal/. conf.d/
+sudo cp nginx_conf_files/default.conf conf.d/
+sudo cp -a nginx_conf_files/universal/. conf.d/
 
 #Then we do a git pull to get all the latest content
 #sudo git stash
@@ -68,8 +68,11 @@ cp -a nginx_conf_files/universal/. conf.d/
 
 
 #once everything is in place - we start the ap, splash server and webservers
-sudo spacewalk/lnxrouter --ap wlan0 SpaceWalkGame  --dns-nocache -g 192.168.1.5 -d -n --daemon
+sudo lnxrouter --ap wlan0 SpaceWalkGame  --dns-nocache -g 192.168.1.5 -d -n --daemon
+sleep 10
 sudo nodogsplash
+sleep 10
 sudo systemctl status nginx
+sleep 10
 echo "Space walk startup script finished"
 exit 0
