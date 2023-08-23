@@ -30,7 +30,7 @@ echo "Detected mode $mode"
 #Then we do a git pull to get all the latest content if parameter for git is available
 for var in "$@"
 do
-    if [[ $var == "gitupdate"]]; then
+    if [[ $var == 'gitupdate' ]]; then
         sudo git stash
         sudo git pull
     fi
