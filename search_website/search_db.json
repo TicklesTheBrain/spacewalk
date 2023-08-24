@@ -2,18 +2,47 @@
     "db": [
         {
             "matches": [
-                "Jurgis",
-                "Antanas",
-                "Aloyzas",
-                "Martynas"
+                "jurgis",
+                "antanas",
+                "aloyzas",
+                "martynas"
             ],
-            "content": "Keturi kaimiečiai broliai grįš namo"
+            "stage": [-1],
+            "content": {
+                "textbox": "Keturi kaimiečiai broliai grįš namo"
+            }
         },
         {
             "matches": [
-                "Eurovizija"
+                "eurovizija"
             ],
-            "content": "Eurovizija yra dainų konkursas. Wow."
+            "stage": [-1],
+            "content": {
+                "textbox": "Eurovizija yra dainų konkursas. Wow."
+            }
+        },
+        {
+            "matches": [
+                "answer"
+            ],
+            "stage": [1],            
+            "content": {
+                "textbox": "This is a rockstar page",
+                "link": "http://rock.star",
+                "linkTitle": "Nuoroda į labai svarbų dalyką"
+            }
+        },
+        {
+            "matches": [
+                "bird"
+            ],
+            "stage": [1],            
+            "content": {
+                "textbox": "This is a rockstar page",
+                "link": "http://rock.star",
+                "linkTitle": "Nuoroda į labai svarbų dalyką",
+                "pics": ["pics/bird.jpg","pics/bird.jpg"]
+            }
         }
     ]
 }
