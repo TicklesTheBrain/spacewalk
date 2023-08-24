@@ -43,18 +43,22 @@ case $mode in
 
     all)
         sudo cat variables.json | jq '.mode = $v' --arg v -1 | sponge variables.json
+        echo "updated variables.json"
         ;;
 
     stage1)
         sudo cat variables.json | jq '.mode = $v' --arg v 0 | sponge variables.json
+        echo "updated variables.json"
         ;;
 
     stage2)
         sudo cat variables.json | jq '.mode = $v' --arg v 1 | sponge variables.json
+        echo "updated variables.json"
         ;;
 
     stage3)
         sudo cat variables.json | jq '.mode = $v' --arg v 2 | sponge variables.json
+        echo "updated variables.json"
         ;;
 
 esac
@@ -64,14 +68,17 @@ case $mode in
 
     stage1)
         sudo cp -a stage1websites/splash/. /etc/nodogsplash/htdocs/
+        echo "copied splash page"
         ;;
 
     stage2)
         sudo cp -a stage2websites/splash/. /etc/nodogsplash/htdocs/
+         echo "copied splash page"
         ;;
 
     stage3)
         sudo cp -a stage3websites/splash/. /etc/nodogsplash/htdocs/
+        echo "copied splash page"
         ;;
 
 esac
@@ -81,37 +88,54 @@ case $mode in
 
     stage1)
         sudo cp -a nginx_conf_files/stage1/. conf.d/
+        echo "copied stage nginx configs"
         ;;
 
     stage2)
         sudo cp -a nginx_conf_files/stage2/. conf.d/
+        echo "copied stage nginx configs"
         ;;
 
     stage3)
         sudo cp -a nginx_conf_files/stage3/. conf.d/
+        echo "copied stage nginx configs"
         ;;
 
     all)
         sudo cp -a nginx_conf_files/stage1/. conf.d/
         sudo cp -a nginx_conf_files/stage2/. conf.d/
-        sudo cp -a nginx_conf_files/stage3/. conf.d/        
+        sudo cp -a nginx_conf_files/stage3/. conf.d/
+        echo "copied all stage nginx configs"        
 
 esac
 
 #Copy stage-independent configs
 sudo cp nginx_conf_files/default.conf conf.d/
 sudo cp -a nginx_conf_files/universal/. conf.d/
+echo "copied universal nginx configs"
+
+#escape early if copyonly argument provided
+for var in "$@"
+do
+    if [[ $var == 'copyonly' ]]; then
+        echo "exiting early, copyonly requested"
+        exit 0
+    fi
+done
 
 #once everything is in place - we start the ap
 sudo lnxrouter --ap wlan0 SpaceWalkGame --dns-nocache -g 192.168.5.1 -d -n --daemon
+echo "started lnxrouter"
 
 #ap takes a bit of time to setup so we have to wait, the captive portal needs it running before it starts
 sleep 10
 sudo nodogsplash
+echo "started no do splash"
 
 #wait a bit more for good measure and start the webservers
 sleep 5
 sudo systemctl restart nginx
+echo "restarted nginx"
 
 #Setup script is done
 echo "Space walk startup script finished"
