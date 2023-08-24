@@ -39,11 +39,16 @@
 
 			if (isset($_GET['q'])){
 				$db = json_decode(file_get_contents('search_db.json',true), true)['db'];
+                $idToUse = json_decode(file_get_contents('../variables.json', true), true)['mode'];
 				$results = array();
                 $trimmedQ = substr($_GET['q'], 0, 1000);
 				$queryWords = explode(" ", strtolower($trimmedQ));
 				foreach ($queryWords as $word){
 					foreach ($db as $uniqueMatch){
+                        if (isset($uniqueMatch['stage']) && !in_array(-1, $uniqueMatch['stage']) && !in_array($idToUse, $uniqueMatch['stage']) && $idToUse !=  -1 ){
+                            continue;
+                        }
+
 						if (in_array($word, $uniqueMatch['matches']) && !in_array($uniqueMatch['content'], $results)){
 							array_push($results, $uniqueMatch['content']);
 						}

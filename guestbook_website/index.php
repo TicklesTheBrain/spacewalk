@@ -13,7 +13,14 @@
 	<header><link rel="stylesheet" type="text/css" href="assets/css/style.css"></header>
 	<?php
 		date_default_timezone_set('Europe/Vilnius');
-		$idToUse = 0;
+		#$idToUse = 0;
+		$idToUse = json_decode(file_get_contents('../variables.json', true), true)['mode'];
+
+		#There's no specific data to display when in allMode, so this is for debug purposes only
+		if ($idToUse == -1){
+			$idToUse = 2;
+		}
+		
 		$messages = array_reverse(json_decode(file_get_contents('messages.json', true), true));
 		$data = json_decode(file_get_contents('../data.json', true), true)['guestbookData'][$idToUse];
 		$last = isset($data['complete']);
