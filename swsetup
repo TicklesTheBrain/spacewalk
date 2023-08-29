@@ -2,11 +2,15 @@
 
 #Here I am just going to put some prerequisites so they don't get lost:
 
+
+# sudo apt-get update & sudo apt-get ugprade to get all the updates
+# get git so we can pull repos and stuffsudo 
 # a directory at usr/share/spacewalk pulling newest git content from a public repo (this is the repo where this script lives)
+# need a symlink to usr/bin to make the commands runnable easier
 # lnxrouter script is just copied into this repo, with one modification: I've added dnsmasq property to resolve ALL DNS requests to local ip
 # nginx with a modified config to include all additional config files from spacewalk directory
 # nodogsplash, which doesn't have a package and has to be built on the device
-# unofficial wiringpi, because the official one doesn't work with all raspis https://github.com/WiringPi/WiringPi/releases/tag/2.61-1
+# unofficial wiringpi, because the official one doesn't work with all raspis https://github.com/WiringPi/WiringPi/releases/tag/2.61-1 (copied to this repo just for ease of use)
 # use jq to make edit some of the jsons from bash
 # install moreutils to get the sponge command
 # install php8.1-fpm so that nginx can serve php
