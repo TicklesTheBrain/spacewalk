@@ -80,3 +80,6 @@ Here I am just going to put some prerequisites so they don't get lost. Here is s
     - [ ] Nginx root config
     - [ ] php8.1-fpm
     - [ ] nodogsplash
+- [ ] Create a shutdown script that shut things down gracefully
+    - [ ] shutting down lnxrouter needs some pid grepping
+    - [ ] don't know how to shut nodogsplash gracefully

@@ -2,7 +2,7 @@
 
 echo "Space Walk Startup Script Running"
 echo "Running at $PWD"
-sudo cd /usr/share/spacewalk
+cd /usr/share/spacewalk
 echo "switched directory to $PWD"
 
 #First we read the Gpio to determine the mode
