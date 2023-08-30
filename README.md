@@ -83,3 +83,5 @@ Here I am just going to put some prerequisites so they don't get lost. Here is s
 - [ ] Create a shutdown script that shut things down gracefully
     - [ ] shutting down lnxrouter needs some pid grepping
     - [ ] don't know how to shut nodogsplash gracefully
+- [ ] Move swsetup to start on boot
+- [ ] Add a check that starts the script in connectable (wifi setup) mode based on GPIO state, rather than starting the game (so that we can ssh into it without connecting peripherals)
